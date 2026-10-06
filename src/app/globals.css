@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Dark Mode Default Color Palette */
+  --space-black: #03050d;
+  --space-deep: #070a16;
+  --space-card: rgba(11, 17, 32, 0.45);
+  --space-border: rgba(99, 102, 241, 0.15);
+  --space-border-glow: rgba(99, 102, 241, 0.3);
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  
+  --neon-blue: #00f2fe;
+  --neon-indigo: #6366f1;
+  --neon-purple: #c084fc;
+  --neon-emerald: #10b981;
+  --neon-rose: #f43f5e;
+  
+  /* Light Mode Palette */
+  --light-bg: #f5f6fa;
+  --light-card: rgba(255, 255, 255, 0.7);
+  --light-border: rgba(0, 0, 0, 0.06);
+  --light-text-primary: #111827;
+  --light-text-secondary: #4b5563;
+}
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  
+  --color-cyber-blue: var(--neon-blue);
+  --color-cyber-indigo: var(--neon-indigo);
+  --color-cyber-purple: var(--neon-purple);
+  --color-cyber-emerald: var(--neon-emerald);
+  --color-cyber-rose: var(--neon-rose);
+  
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-cyber-grid: gridmove 20s linear infinite;
+  --animate-aurora: aurora 15s ease infinite alternate;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes gridmove {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+@keyframes aurora {
+  0% { filter: hue-rotate(0deg) blur(50px); transform: translate(0, 0) scale(1); }
+  50% { filter: hue-rotate(180deg) blur(70px); transform: translate(5%, 10%) scale(1.1); }
+  100% { filter: hue-rotate(360deg) blur(50px); transform: translate(0, 0) scale(1); }
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--space-black);
+  color: var(--text-primary);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: var(--space-card);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--space-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+  border-color: var(--space-border-glow);
+  box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.15);
+}
+
+.glass-border-blue {
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.05);
+}
+.glass-border-blue:hover {
+  border-color: rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+}
+
+.glass-border-purple {
+  border: 1px solid rgba(192, 132, 252, 0.2);
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.05);
+}
+.glass-border-purple:hover {
+  border-color: rgba(192, 132, 252, 0.4);
+  box-shadow: 0 0 25px rgba(192, 132, 252, 0.15);
+}
+
+.glass-border-emerald {
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.05);
+}
+.glass-border-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+}
+
+/* Cyber Scanning Effects */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.08) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.01),
+    rgba(0, 255, 0, 0.005),
+    rgba(0, 0, 255, 0.01)
+  );
+  background-size: 100% 4px, 6px 100%;
+  opacity: 0.12;
+  z-index: 9999;
+}
+
+.cyber-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Light Mode Theme Classes */
+.light {
+  background: var(--light-bg);
+  color: var(--light-text-primary);
+}
+
+.light .glass-panel {
+  background: var(--light-card);
+  border: 1px solid var(--light-border);
+  box-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.06);
+}
+
+.light .glass-panel:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 35px 0 rgba(0, 0, 0, 0.1);
+}
+
+.light .glass-border-blue,
+.light .glass-border-purple,
+.light .glass-border-emerald {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.light .glass-border-blue:hover { border-color: rgba(0, 242, 254, 0.5); }
+.light .glass-border-purple:hover { border-color: rgba(192, 132, 252, 0.5); }
+.light .glass-border-emerald:hover { border-color: rgba(16, 185, 129, 0.5); }
+
+.light .cyber-grid {
+  opacity: 0.05;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+}
+
+/* Neon Text / Glow Utilities */
+.text-neon-blue {
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+}
+.text-neon-indigo {
+  text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+.text-neon-purple {
+  text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+}
+.text-neon-emerald {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.neon-glow-blue {
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+}
+.neon-glow-indigo {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+}
+.neon-glow-purple {
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.25);
+}
+.neon-glow-emerald {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+}
+
+/* Radial aurora lights */
+.aurora-bg {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.light .aurora-bg {
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  filter: blur(100px);
+}
